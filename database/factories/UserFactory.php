@@ -25,10 +25,17 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'username' => fake()->unique()->userName(),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->unique()->e164PhoneNumber(),
+            'role' => fake()->randomElement(['player', 'owner', 'admin']),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'gender' => fake()->randomElement(['male', 'female', 'other']),
+            'position' => fake()->randomElement(['Forward', 'Midfielder', 'Defender', 'Goalkeeper']),
+            'is_available' => fake()->boolean(),
+            'profile_image' => fake()->imageUrl(640, 480, 'people', true, 'profile'),
         ];
     }
 
